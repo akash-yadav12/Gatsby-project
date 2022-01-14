@@ -128,7 +128,7 @@ export default function CharacterList() {
           </button>
         </div>
       </div>
-      <div className="characters-wrap columns is-centered has-text-centered is-multiline my-6">
+      {isLoading ? <div className="has-text-centered"><button className="button is-loading is-white is-size-1">loading</button></div> : (<div className="characters-wrap columns is-centered has-text-centered is-multiline my-6">
         {characters.map((ch) => (
           <Link
             to={"/" + ch.name.split(" ")[0] + ch.id}
@@ -151,7 +151,7 @@ export default function CharacterList() {
             </div>
           </Link>
         ))}
-      </div>
+      </div>)}
       <div className="Pagination mb-6 is-flex is-justify-content-center is-align-items-center">
         <button
           className="button mx-2 is-info"

@@ -4,10 +4,8 @@ import { graphql } from "gatsby"
 import "bulma/css/bulma.min.css"
 
 export default function Character({ data }) {
-  console.log(data)
   const { name, type, created, image, location, species, status, gender } =
     data.graphqlapi.character
-  console.log(name, type, created, image, location, species, status)
   return (
     <Layout>
     <div className="container my-6">
