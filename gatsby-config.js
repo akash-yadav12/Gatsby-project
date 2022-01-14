@@ -6,5 +6,14 @@
 
 module.exports = {
   /* Your site config here */
-  plugins: [],
+  plugins: [
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "graphqlapi",
+        fieldName: "graphqlapi",
+        url: "https://rickandmortyapi.com/graphql",
+      },
+    },
+  ],
 }

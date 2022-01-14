@@ -16,7 +16,12 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "bulma": "^0.9.3",
     "gatsby": "^4.5.2",
+    "gatsby-source-graphql": "^4.5.1",
+    "graphql": "^15.8.0",
+    "graphql-request": "^3.7.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
