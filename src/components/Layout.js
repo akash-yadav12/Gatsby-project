@@ -10,6 +10,11 @@ export default function Layout({ children }) {
     <div>
       <Header />
       {children}
+      <footer className="footer">
+        <div className="has-text-centered">
+          Copyright @{new Date().getFullYear()} Gatsby X Graphql
+        </div>
+      </footer>
     </div>
   )
 }
