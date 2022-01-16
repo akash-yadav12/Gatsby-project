@@ -31,5 +31,5 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   nextPageHandler: PropTypes.func,
   prevPageHandler: PropTypes.func,
-  totalPages: PropTypes.number,
+  totalPages: PropTypes.string,
 }

@@ -4,20 +4,18 @@ exports.createPages = async ({ graphql, actions }) => {
     query createPath {
       graphqlapi {
         characters {
-          results {
-            name
-            id
+          info {
+            count
           }
         }
       }
     }
   `)
-
-  data.graphqlapi.characters.results.forEach((ch) => {
+  for (let i = 1; i <= data.graphqlapi.characters.info.count; i++) {
     actions.createPage({
-      path: "/" + ch.name.split(" ")[0] + ch.id,
       component: path.resolve("./src/templates/character-details.js"),
-      context: { id: ch.id },
+      context: { id: i },
+      path: "/" + i,
     })
-  })
+  }
 }

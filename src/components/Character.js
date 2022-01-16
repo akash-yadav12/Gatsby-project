@@ -6,7 +6,7 @@ import PropTypes from "prop-types"
 
 export default function Character({ name, image, gender, status, id }) {
   return (
-    <Link to={"/" + name.split(" ")[0] + id} className="column is-5 px-4">
+    <Link to={"/" + id} className="column is-5 px-4">
       <div className="card is-flex is-align-items-center has-text-white">
         <div className="card-image ">
           <img src={image} alt={name} />
