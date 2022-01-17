@@ -15,7 +15,7 @@ export default function CharacterDetails({ data }) {
     <Layout>
       <div className="container my-6">
         <div className="Image has-text-centered">
-          <img src={image} alt={name} />
+          <img src={image} alt={name} loading="lazy" />
         </div>
         <div className="details has-text-centered">
           <p className="title">Name: {name}</p>

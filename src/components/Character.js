@@ -9,7 +9,7 @@ export default function Character({ name, image, gender, status, id }) {
     <Link to={"/" + id} className="column is-5 px-4">
       <div className="card is-flex is-align-items-center has-text-white">
         <div className="card-image ">
-          <img src={image} alt={name} />
+          <img src={image} alt={name} loading="lazy" />
         </div>
         <div className="card-content is-flex is-flex-direction-column has-text-primary">
           <p className="title is-size-5-mobile mt-2">Name: {name}</p>

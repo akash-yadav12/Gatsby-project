@@ -18,7 +18,7 @@ export default function Filter({
         <div className="gender">
           <div className="select">
             <select onChange={handleGenderChange} value={gender}>
-              <option selected>Gender</option>
+              <option>Gender</option>
               <option>Male</option>
               <option>Female</option>
             </select>
@@ -27,7 +27,7 @@ export default function Filter({
         <div className="Status">
           <div className="select">
             <select onChange={handleStatusChange} value={status}>
-              <option selected>Status</option>
+              <option>Status</option>
               <option>Alive</option>
               <option>Dead</option>
             </select>
@@ -36,7 +36,7 @@ export default function Filter({
         <div className="Species">
           <div className="select">
             <select onChange={handleSpeciesChange} value={species}>
-              <option selected>Species</option>
+              <option>Species</option>
               <option>Alien</option>
               <option>Human</option>
             </select>
