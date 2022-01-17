@@ -20,7 +20,11 @@ export default function Pagination({
       <div className="mx-2">
         Page {currentPage} of {totalPages}
       </div>
-      <button className="button mx-2 is-info" onClick={nextPageHandler}>
+      <button
+        className="button mx-2 is-info"
+        onClick={nextPageHandler}
+        disabled={currentPage === totalPages}
+      >
         Next
       </button>
     </div>

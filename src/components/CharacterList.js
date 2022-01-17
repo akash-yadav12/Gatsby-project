@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 
 import { gql, GraphQLClient } from "graphql-request"
 
@@ -8,12 +8,14 @@ import Pagination from "./Pagination.js"
 
 export default function CharacterList() {
   const [characters, setCharacters] = useState([])
+  const [filteredCharacters, setFilteredCharacters] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [gender, setGender] = useState("")
   const [status, setStatus] = useState("")
   const [species, setSpecies] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [totalPages, setTotalPages] = useState("")
+  const searchRef = useRef()
 
   useEffect(() => {
     setIsLoading(true)
@@ -41,6 +43,7 @@ export default function CharacterList() {
             status
             gender
             id
+            species
           }
           info {
             pages
@@ -54,6 +57,7 @@ export default function CharacterList() {
       .then((res) => {
         setIsLoading(false)
         setCharacters(res.characters.results)
+        setFilteredCharacters(res.characters.results)
         setTotalPages(res.characters.info.pages)
       })
       .catch((_err) => setIsLoading(false))
@@ -64,6 +68,7 @@ export default function CharacterList() {
       setGender("")
       return
     }
+    searchRef.current.value = ""
     setGender(e.target.value)
   }
   const handleStatusChange = (e) => {
@@ -71,6 +76,7 @@ export default function CharacterList() {
       setStatus("")
       return
     }
+    searchRef.current.value = ""
     setStatus(e.target.value)
   }
   const handleSpeciesChange = (e) => {
@@ -78,21 +84,45 @@ export default function CharacterList() {
       setSpecies("")
       return
     }
+    searchRef.current.value = ""
     setSpecies(e.target.value)
   }
   const handleClearFilter = () => {
     setSpecies("")
     setStatus("")
     setGender("")
+    searchRef.current.value = ""
+    setFilteredCharacters(characters)
   }
 
   const nextPageHandler = () => {
+    searchRef.current.value = ""
     setCurrentPage((prev) => prev + 1)
   }
   const prevPageHandler = () => {
+    searchRef.current.value = ""
     setCurrentPage((prev) => prev - 1)
   }
 
+  const searchHandler = (e) => {
+    const temp = []
+    const searchText = e.target.value.toLowerCase().trim()
+    if (searchText) {
+      characters.forEach((ch) => {
+        if (
+          ch.name.toLowerCase().includes(searchText) ||
+          ch.gender.toLowerCase().includes(searchText) ||
+          ch.status.toLowerCase().includes(searchText) ||
+          ch.species.toLowerCase().includes(searchText)
+        ) {
+          temp.push(ch)
+        }
+      })
+      setFilteredCharacters(temp)
+    } else {
+      setFilteredCharacters(characters)
+    }
+  }
   return (
     <div className="container">
       <Filter
@@ -104,6 +134,15 @@ export default function CharacterList() {
         handleSpeciesChange={handleSpeciesChange}
         handleStatusChange={handleStatusChange}
       />
+      <div className="my-4">
+        <input
+          className="input"
+          placeholder="Search By Name, gender, status and species"
+          type="text"
+          ref={searchRef}
+          onChange={searchHandler}
+        />
+      </div>
       {isLoading ? (
         <div className="has-text-centered">
           <button className="button is-loading is-white is-size-1">
@@ -112,17 +151,23 @@ export default function CharacterList() {
         </div>
       ) : (
         <div className="characters-wrap columns is-centered has-text-centered is-multiline my-6">
-          {characters.map((ch) => (
-            <Character {...ch} key={ch.id} />
-          ))}
+          {filteredCharacters.length > 0 ? (
+            filteredCharacters.map((ch) => <Character {...ch} key={ch.id} />)
+          ) : (
+            <div className="title has-text-danger has-text-centered">
+              No Results found
+            </div>
+          )}
         </div>
       )}
-      <Pagination
-        prevPageHandler={prevPageHandler}
-        nextPageHandler={nextPageHandler}
-        totalPages={totalPages}
-        currentPage={currentPage}
-      />
+      {filteredCharacters.length > 0 && (
+        <Pagination
+          prevPageHandler={prevPageHandler}
+          nextPageHandler={nextPageHandler}
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
+      )}
     </div>
   )
 }
